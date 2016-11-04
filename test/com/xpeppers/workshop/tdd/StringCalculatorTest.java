@@ -15,14 +15,21 @@ public class StringCalculatorTest {
 
 	@Test
 	public void forEmptyStringReturns0() {
-		int result = calculator.add("");
-		Assert.assertEquals(0, result);
+		Assert.assertEquals(0, calculator.add(""));
 	}
 
 	@Test
 	public void forStringWithOneNumberReturnsNumberItself() {
-		int result = calculator.add("1");
-		Assert.assertEquals(1, result);
+		Assert.assertEquals(0, calculator.add("0"));
+		Assert.assertEquals(1, calculator.add("1"));
+		Assert.assertEquals(2, calculator.add("2"));
+	}
+
+	@Test
+	public void forTwoNumbersStringReturnsSumOfNumbers() {
+		Assert.assertEquals(3, calculator.add("1,2"));
+		Assert.assertEquals(5, calculator.add("3,2"));
+		Assert.assertEquals(7, calculator.add("0,7"));
 	}
 
 }
