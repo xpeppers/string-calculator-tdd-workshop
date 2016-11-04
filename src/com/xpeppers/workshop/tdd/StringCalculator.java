@@ -6,11 +6,17 @@ public class StringCalculator {
 		if (commaSeparatedNumbers.isEmpty())
 			return 0;
 
-		if (!commaSeparatedNumbers.contains(","))
-			return Integer.parseInt(commaSeparatedNumbers);
-
 		String[] addendums = commaSeparatedNumbers.split(",");
-		return Integer.parseInt(addendums[0]) + Integer.parseInt(addendums[1]);
+		return sumAll(addendums);
+	}
+
+	private int sumAll(String[] addendums) {
+		int sum = 0;
+		for (String addendum : addendums) {
+			sum += Integer.parseInt(addendum);
+		}
+
+		return sum;
 	}
 
 }
