@@ -2,11 +2,13 @@ package com.xpeppers.workshop.tdd;
 
 public class StringCalculator {
 
-	public int add(String commaSeparatedNumbers) {
-		if (commaSeparatedNumbers.isEmpty())
+	private static final String SEPARATOR_REGEX = "[\\n|,]";
+
+	public int add(String commaOrNewLineSeparatedNumbers) {
+		if (commaOrNewLineSeparatedNumbers.isEmpty())
 			return 0;
 
-		String[] addendums = commaSeparatedNumbers.split(",");
+		String[] addendums = commaOrNewLineSeparatedNumbers.split(SEPARATOR_REGEX);
 		return sumAll(addendums);
 	}
 

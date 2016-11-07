@@ -1,6 +1,6 @@
 package com.xpeppers.workshop.tdd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,10 +32,16 @@ public class StringCalculatorTest {
 		assertEquals(5, calculator.add("3,2"));
 		assertEquals(7, calculator.add("0,7"));
 	}
-	
+
 	@Test
 	public void sumManyNumbers() throws Exception {
 		assertEquals(15, calculator.add("1,2,3,4,5"));
+	}
+
+	@Test
+	public void allowNewLineAsSeparator() throws Exception {
+		assertEquals(6, calculator.add("1\n2,3"));
+		assertEquals(6, calculator.add("1\n2\n3"));
 	}
 
 }
