@@ -8,15 +8,8 @@ public class StringCalculator {
 		if (delimiterAndNumbers.isEmpty())
 			return 0;
 
-		String delimiter = DEFAULT_DELIMITERS_REGEX;
-		String numbersSeparatedByDelimiter = delimiterAndNumbers;
-
-		HeaderParser headerParser = new HeaderParser(delimiterAndNumbers);
-		if (headerParser.isNewDelimiterSpecified()) {
-			delimiter = headerParser.delimiter();
-			numbersSeparatedByDelimiter = headerParser.allButHeader();
-		}
-		return sumAllSeparatedBy(delimiter, numbersSeparatedByDelimiter);
+		HeaderParser headerParser = new HeaderParser(delimiterAndNumbers, DEFAULT_DELIMITERS_REGEX);
+		return sumAllSeparatedBy(headerParser.delimiter(), headerParser.allButHeader());
 	}
 
 	private int sumAllSeparatedBy(String delimiter, String numbersSeparatedByDelimiter) {
