@@ -11,10 +11,10 @@ public class StringCalculator {
 		String delimiter = DEFAULT_DELIMITERS_REGEX;
 		String numbersSeparatedByDelimiter = delimiterAndNumbers;
 
-		if (isNewDelimiterSpecified(delimiterAndNumbers)) {
-			int endOfDelimiterIndex = delimiterAndNumbers.indexOf("\n");
-			delimiter = delimiterAndNumbers.substring(2, endOfDelimiterIndex);
-			numbersSeparatedByDelimiter = delimiterAndNumbers.substring(endOfDelimiterIndex + 1);
+		HeaderParser headerParser = new HeaderParser(delimiterAndNumbers);
+		if (headerParser.isNewDelimiterSpecified()) {
+			delimiter = headerParser.delimiter();
+			numbersSeparatedByDelimiter = headerParser.allButHeader();
 		}
 		return sumAllSeparatedBy(delimiter, numbersSeparatedByDelimiter);
 	}
@@ -22,10 +22,6 @@ public class StringCalculator {
 	private int sumAllSeparatedBy(String delimiter, String numbersSeparatedByDelimiter) {
 		String[] addendums = numbersSeparatedByDelimiter.split(delimiter);
 		return sumAll(addendums);
-	}
-
-	private boolean isNewDelimiterSpecified(String numbersSeparatedByDelimiters) {
-		return numbersSeparatedByDelimiters.startsWith("//");
 	}
 
 	private int sumAll(String[] addendums) {
