@@ -1,7 +1,7 @@
 package com.xpeppers.workshop.tdd;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StringCalculator {
 
@@ -18,20 +18,15 @@ public class StringCalculator {
 	}
 
 	private int sumAll(String[] addendums) {
-		int sum = 0;
-		for (String addendum : addendums) {
-			sum += Integer.parseInt(addendum);
-		}
-		return sum;
+		return Stream.of(addendums).mapToInt(addendum -> Integer.parseInt(addendum)).sum();
 	}
 
 	private void throwsExceptionIfAtLeastOneNegative(String[] addendums) {
-		List<String> negatives = new ArrayList<>();
-		for (String addendum : addendums) {
-			if (Integer.parseInt(addendum) < 0)
-				negatives.add(addendum);
-		}
+		String negatives = Stream.of(addendums)
+				.filter(addendum -> Integer.parseInt(addendum) < 0)
+				.collect(Collectors.joining(", "));
+
 		if (!negatives.isEmpty())
-			throw new IllegalArgumentException("negatives not allowed: " + String.join(", ", negatives));
+			throw new IllegalArgumentException("negatives not allowed: " + negatives);
 	}
 }
