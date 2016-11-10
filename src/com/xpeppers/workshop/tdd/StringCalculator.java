@@ -18,7 +18,9 @@ public class StringCalculator {
 	}
 
 	private int sumAll(String[] addendums) {
-		return Stream.of(addendums).mapToInt(addendum -> Integer.parseInt(addendum)).sum();
+		return Stream.of(addendums)
+				.mapToInt(addendum -> Integer.parseInt(addendum))
+				.filter(addendum -> addendum < 1000).sum();
 	}
 
 	private void throwsExceptionIfAtLeastOneNegative(String[] addendums) {

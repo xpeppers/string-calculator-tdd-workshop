@@ -68,6 +68,10 @@ public class StringCalculatorTest {
 		exception.expectMessage("negatives not allowed: -1, -3, -4");
 
 		calculator.add("0,-1,2,-3,-4,5");
+	}
 
+	@Test
+	public void numbersBiggerThan1000ShouldBeIgnored() throws Exception {
+		assertEquals(2, calculator.add("1000,2"));
 	}
 }
