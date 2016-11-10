@@ -15,14 +15,18 @@ public class HeaderParser {
 		endOfDelimiterIndex = delimiterAndNumbers.indexOf("\n");
 	}
 
-	public String delimiter() {
+	public String[] parse() {
+		return allButHeader().split(delimiter());
+	}
+
+	private String delimiter() {
 		if (!isNewDelimiterSpecified)
 			return defaultDelimiter;
 
 		return delimiterAndNumbers.substring(2, endOfDelimiterIndex);
 	}
 
-	public String allButHeader() {
+	private String allButHeader() {
 		if (!isNewDelimiterSpecified)
 			return delimiterAndNumbers;
 

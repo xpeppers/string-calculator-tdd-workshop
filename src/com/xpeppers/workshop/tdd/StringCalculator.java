@@ -12,7 +12,7 @@ public class StringCalculator {
 			return 0;
 
 		HeaderParser headerParser = new HeaderParser(delimiterAndNumbers, DEFAULT_DELIMITERS_REGEX);
-		String[] addendums = headerParser.allButHeader().split(headerParser.delimiter());
+		String[] addendums = headerParser.parse();
 		throwsExceptionIfAtLeastOneNegative(addendums);
 		return sumAll(addendums);
 	}
