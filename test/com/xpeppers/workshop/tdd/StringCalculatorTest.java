@@ -1,13 +1,18 @@
 package com.xpeppers.workshop.tdd;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class StringCalculatorTest {
 
 	private StringCalculator calculator;
+
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
 
 	@Before
 	public void setUp() {
@@ -49,4 +54,20 @@ public class StringCalculatorTest {
 		assertEquals(3, calculator.add("//;\n1;2"));
 	}
 
+	@Test
+	public void negativeNumberThrowsException() throws Exception {
+		exception.expect(IllegalArgumentException.class);
+		exception.expectMessage("negatives not allowed: -3");
+
+		calculator.add("0,1,2,-3,4,5");
+	}
+
+	@Test
+	public void manyNegativeNumbersHasToBeShownInExceptionMessage() throws Exception {
+		exception.expect(IllegalArgumentException.class);
+		exception.expectMessage("negatives not allowed: -1, -3, -4");
+
+		calculator.add("0,-1,2,-3,-4,5");
+
+	}
 }
