@@ -12,26 +12,26 @@ public class StringCalculator {
 			return 0;
 
 		HeaderParser headerParser = new HeaderParser(delimiterAndNumbers, DEFAULT_DELIMITERS_REGEX);
-		return sumAllSeparatedBy(headerParser.delimiter(), headerParser.allButHeader());
-	}
-
-	private int sumAllSeparatedBy(String delimiter, String numbersSeparatedByDelimiter) {
-		String[] addendums = numbersSeparatedByDelimiter.split(delimiter);
+		String[] addendums = headerParser.allButHeader().split(headerParser.delimiter());
+		throwsExceptionIfAtLeastOneNegative(addendums);
 		return sumAll(addendums);
 	}
 
 	private int sumAll(String[] addendums) {
 		int sum = 0;
-		List<String> negatives = new ArrayList<>();
 		for (String addendum : addendums) {
-			int signedNumber = Integer.parseInt(addendum);
-			if (signedNumber < 0)
-				negatives.add(addendum);
-			sum += signedNumber;
+			sum += Integer.parseInt(addendum);
 		}
-		if (!negatives.isEmpty())
-			throw new IllegalArgumentException("negatives not allowed: " + String.join(", ", negatives));
 		return sum;
 	}
 
+	private void throwsExceptionIfAtLeastOneNegative(String[] addendums) {
+		List<String> negatives = new ArrayList<>();
+		for (String addendum : addendums) {
+			if (Integer.parseInt(addendum) < 0)
+				negatives.add(addendum);
+		}
+		if (!negatives.isEmpty())
+			throw new IllegalArgumentException("negatives not allowed: " + String.join(", ", negatives));
+	}
 }
