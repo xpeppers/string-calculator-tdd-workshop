@@ -74,4 +74,10 @@ public class StringCalculatorTest {
 	public void numbersBiggerThan1000ShouldBeIgnored() throws Exception {
 		assertEquals(2, calculator.add("1000,2"));
 	}
+
+	@Test
+	public void delimitersCanBeOfAnyLength() throws Exception {
+		assertEquals(6, calculator.add("//[\\*\\*\\*]\n1\\*\\*\\*2\\*\\*\\*3"));
+		assertEquals(6, calculator.add("//[del]\n1del2del3"));
+	}
 }

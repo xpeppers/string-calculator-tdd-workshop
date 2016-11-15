@@ -1,5 +1,7 @@
 package com.xpeppers.workshop.tdd;
 
+import java.util.regex.Pattern;
+
 public class HeaderParser {
 
 	final private String delimiterAndNumbers;
@@ -23,7 +25,9 @@ public class HeaderParser {
 		if (!isNewDelimiterSpecified)
 			return defaultDelimiter;
 
-		return delimiterAndNumbers.substring(2, endOfDelimiterIndex);
+		String delimiter = delimiterAndNumbers.substring(2, endOfDelimiterIndex);
+		delimiter = delimiter.replaceAll("\\[|\\]", "");
+		return Pattern.quote(delimiter);
 	}
 
 	private String allButHeader() {
