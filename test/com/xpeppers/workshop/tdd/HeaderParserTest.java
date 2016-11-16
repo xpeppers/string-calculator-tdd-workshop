@@ -29,4 +29,10 @@ public class HeaderParserTest {
 		HeaderParser parser = new HeaderParser("//[\\*\\*\\*]\nany\\*\\*\\*string", "£");
 		assertArrayEquals(new String[] { "any", "string" }, parser.parse());
 	}
+
+	@Test
+	public void whenInputContainsMultipleDelimiters() throws Exception {
+		HeaderParser parser = new HeaderParser("//[\\*][%]\nany\\*kind%string", "&");
+		assertArrayEquals(new String[] { "any", "kind", "string" }, parser.parse());
+	}
 }

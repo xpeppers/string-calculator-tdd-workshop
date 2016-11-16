@@ -80,4 +80,10 @@ public class StringCalculatorTest {
 		assertEquals(6, calculator.add("//[\\*\\*\\*]\n1\\*\\*\\*2\\*\\*\\*3"));
 		assertEquals(6, calculator.add("//[del]\n1del2del3"));
 	}
+
+	@Test
+	public void allowMultipleDelimiters() throws Exception {
+		assertEquals(6, calculator.add("//[\\*][%]\n1\\*2%3"));
+		assertEquals(6, calculator.add("//[del][c]\n1c2del3"));
+	}
 }
