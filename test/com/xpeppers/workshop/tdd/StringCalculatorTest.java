@@ -84,7 +84,7 @@ public class StringCalculatorTest {
 	@Test
 	public void allowMultipleDelimiters() throws Exception {
 		assertEquals(6, calculator.add("//[\\*][%]\n1\\*2%3"));
-		assertEquals(6, calculator.add("//[d][c]\n1c2d3"));
+		assertEquals(10, calculator.add("//[d][c][e]\n1c2d3e4"));
 	}
 
 	@Test
