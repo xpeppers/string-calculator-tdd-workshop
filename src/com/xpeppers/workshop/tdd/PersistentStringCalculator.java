@@ -10,7 +10,7 @@ public class PersistentStringCalculator {
 		this.repository = repository;
 	}
 
-	public void add(String delimiterAndNumbers) {
+	public void add(String delimiterAndNumbers) throws Exception {
 		int result = calculator.add(delimiterAndNumbers);
 		repository.save(delimiterAndNumbers, result);
 	}
