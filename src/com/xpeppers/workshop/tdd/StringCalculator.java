@@ -5,13 +5,11 @@ import java.util.stream.Stream;
 
 public class StringCalculator {
 
-	private static final String DEFAULT_DELIMITERS_REGEX = "[\\n|,]";
-
 	public int add(String delimiterAndNumbers) {
 		if (delimiterAndNumbers.isEmpty())
 			return 0;
 
-		HeaderParser headerParser = new HeaderParser(delimiterAndNumbers, DEFAULT_DELIMITERS_REGEX);
+		HeaderParser headerParser = new HeaderParser(delimiterAndNumbers, "\n", ",");
 		String[] addendums = headerParser.parse();
 		throwsExceptionIfAtLeastOneNegative(addendums);
 		return sumAll(addendums);

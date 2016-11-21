@@ -7,35 +7,44 @@ import java.util.regex.Pattern;
 public class HeaderParser {
 
 	final private String delimiterAndNumbers;
-	final private String defaultDelimiter;
-	final private boolean isNewDelimiterSpecified;
+	final private List<String> defaultDelimiters;
+	final private boolean isCustomDelimiterSpecified;
 	final private int endOfDelimiterIndex;
 
-	public HeaderParser(String delimiterAndNumbers, String defaultDelimiter) {
+	public HeaderParser(String delimiterAndNumbers, String... defaultDelimiters) {
 		this.delimiterAndNumbers = delimiterAndNumbers;
-		this.defaultDelimiter = defaultDelimiter;
+		this.defaultDelimiters = Arrays.asList(defaultDelimiters);
 
-		isNewDelimiterSpecified = delimiterAndNumbers.startsWith("//");
+		isCustomDelimiterSpecified = delimiterAndNumbers.startsWith("//");
 		endOfDelimiterIndex = delimiterAndNumbers.indexOf("\n");
 	}
 
 	public String[] parse() {
-		return allButHeader().split(delimiter());
+		return allButHeader().split(toRegEx(delimiters()));
 	}
 
-	private String delimiter() {
-		if (!isNewDelimiterSpecified)
-			return defaultDelimiter;
-
-		String delimiter = delimiterAndNumbers.substring(2, endOfDelimiterIndex);
-		List<String> delimiters = Arrays.asList(delimiter.split("\\]\\["));
-		delimiters.replaceAll(d -> d.replaceAll("\\[|\\]", ""));
-		delimiters.replaceAll(d -> Pattern.quote(d));
+	private String toRegEx(List<String> delimiters) {
 		return String.join("|", delimiters);
 	}
 
+	private List<String> delimiters() {
+		List<String> delimitersToUse = defaultDelimiters;
+		if (isCustomDelimiterSpecified)
+			delimitersToUse = detectMulptipleCustomDelimiters();
+
+		return delimitersToUse;
+	}
+
+	private List<String> detectMulptipleCustomDelimiters() {
+		String delimiters = delimiterAndNumbers.substring(2, endOfDelimiterIndex);
+		List<String> splittedDelimiters = Arrays.asList(delimiters.split("\\]\\["));
+		splittedDelimiters.replaceAll(d -> d.replaceAll("\\[|\\]", ""));
+		splittedDelimiters.replaceAll(d -> Pattern.quote(d));
+		return splittedDelimiters;
+	}
+
 	private String allButHeader() {
-		if (!isNewDelimiterSpecified)
+		if (!isCustomDelimiterSpecified)
 			return delimiterAndNumbers;
 
 		return delimiterAndNumbers.substring(endOfDelimiterIndex + 1);
