@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="integration-test"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/mockito-core-2.2.16.jar"/>
 	<classpathentry kind="lib" path="lib/byte-buddy-1.5.5.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-tck-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.15.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
