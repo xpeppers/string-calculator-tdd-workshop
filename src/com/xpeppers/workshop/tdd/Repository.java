@@ -11,23 +11,10 @@ public class Repository {
 	}
 
 	public void save(String delimiterAndNumbers, int result) throws Exception {
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement("insert into StringCalculator values(?, ?)");
+		try (PreparedStatement statement = connection.prepareStatement("insert into StringCalculator values(?, ?)");) {
 			statement.setObject(1, delimiterAndNumbers);
 			statement.setObject(2, result);
 			statement.executeUpdate();
-		} finally {
-			close(statement);
 		}
 	}
-
-	private void close(PreparedStatement statement) {
-		if (statement != null)
-			try {
-				statement.close();
-			} catch (Exception ignored) {
-			}
-	}
-
 }
