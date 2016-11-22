@@ -25,7 +25,7 @@ public class DbUtils {
 			connection.close();
 	}
 
-	private static Connection getConnection() throws SQLException {
+	public static Connection getConnection() throws SQLException {
 		if (connection == null || connection.isClosed())
 			connection = DriverManager.getConnection("jdbc:sqlite::memory:");
 

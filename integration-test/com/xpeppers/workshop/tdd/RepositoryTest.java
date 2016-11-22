@@ -25,7 +25,7 @@ public class RepositoryTest {
 
 	@Test
 	public void savesDataIntoDb() throws Exception {
-		new Repository().save("anyDelimiterAndNumbers", 37);
+		new Repository(DbUtils.getConnection()).save("anyDelimiterAndNumbers", 37);
 
 		ResultSet results = DbUtils.executeQuery("select * from StringCalculator");
 
