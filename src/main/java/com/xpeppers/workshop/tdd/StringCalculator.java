@@ -9,16 +9,10 @@ public class StringCalculator {
 		if (delimiterAndNumbers.isEmpty())
 			return 0;
 
-		HeaderParser headerParser = new HeaderParser(delimiterAndNumbers, "\n", ",");
-		String[] addendums = headerParser.parse();
+		StringParser parser = new StringParser(delimiterAndNumbers, ",", "\n");
+		String[] addendums = parser.extractNumbers();
 		throwsExceptionIfAtLeastOneNegative(addendums);
-		return sumAll(addendums);
-	}
-
-	private int sumAll(String[] addendums) {
-		return Stream.of(addendums)
-				.mapToInt(addendum -> Integer.parseInt(addendum))
-				.filter(addendum -> addendum < 1000).sum();
+		return sumAllLessThan1000(addendums);
 	}
 
 	private void throwsExceptionIfAtLeastOneNegative(String[] addendums) {
@@ -28,5 +22,12 @@ public class StringCalculator {
 
 		if (!negatives.isEmpty())
 			throw new IllegalArgumentException("negatives not allowed: " + negatives);
+	}
+
+	private int sumAllLessThan1000(String[] addendums) {
+		return Stream.of(addendums)
+				.mapToInt(addendum -> Integer.parseInt(addendum))
+				.filter(addendum -> addendum < 1000)
+				.sum();
 	}
 }
