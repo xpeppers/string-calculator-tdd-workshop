@@ -19,6 +19,7 @@ configurations {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.mockito', name: 'mockito-core', version:'2.2.16'
+    integrationTestCompile group:'org.xerial', name:'sqlite-jdbc', version:'3+'
 }
 
 sourceSets {
@@ -28,5 +29,24 @@ sourceSets {
             runtimeClasspath += main.output + test.output
             srcDir file('src/integration-test/java')
         }
+    }
+}
+
+
+test {
+    testLogging {
+        events "PASSED", "STARTED", "FAILED", "SKIPPED"
+    }
+}
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
+
+integrationTest {
+    testLogging {
+        events "PASSED", "STARTED", "FAILED", "SKIPPED"
     }
 }
